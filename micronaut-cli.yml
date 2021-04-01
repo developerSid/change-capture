@@ -1,0 +1,6 @@
+applicationType: cli
+defaultPackage: tech.garymyers.data
+testFramework: spock
+sourceLanguage: kotlin
+buildTool: gradle
+features: [annotation-api, app-name, cache-caffeine, data, data-jdbc, flyway, graalvm, gradle, jdbc-hikari, kotlin, kotlin-extension-functions, logback, picocli, picocli-kotlin-application, picocli-spock, postgres, properties, readme, redis-lettuce, shade, spock, testcontainers]
