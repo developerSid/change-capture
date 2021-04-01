@@ -24,12 +24,12 @@ class CaptureCommand @Inject constructor(
     override fun run() {
         val countDownLatch = CountDownLatch(1)
         val configuration = Configuration.create()
+            .with("name", "change-capture-connector")
             .with("connector.class", "io.debezium.connector.postgresql.PostgresConnector")
             .with("offset.storage",  "org.apache.kafka.connect.storage.FileOffsetBackingStore")
             .with("offset.storage.file.filename", "/tmp/cdc-offset.dat")
-            .with("offset.flush.interval.ms", 60000)
+            .with("offset.flush.interval.ms", 1000)
             .with("plugin.name", "pgoutput")
-            .with("name", "student-postgres-connector")
             .with("database.server.name", "$host-$database")
             .with("database.hostname", host)
             .with("database.port", port)
@@ -40,8 +40,9 @@ class CaptureCommand @Inject constructor(
 
         val engine = DebeziumEngine.create(CloudEvents::class.java).using(configuration.asProperties())
             .notifying(Consumer<ChangeEvent<String, String>> {
-                println(it)
-                println(it.value())
+                if (!it.destination().contains("flyway")) {
+                    println(it.value())
+                }
             }).build()
 
         val engineThread = Thread(engine)

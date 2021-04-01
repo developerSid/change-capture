@@ -13,3 +13,9 @@ services:
        - POSTGRES_DB=testdb
        - POSTGRES_USER=user
        - POSTGRES_PASSWORD=password
+  mq:
+    container_name: mq
+    image: rabbitmq:3.8-alpine
+    ports:
+      - "9001:15672"
+      - "5672:5672"
