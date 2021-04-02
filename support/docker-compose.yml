@@ -1,6 +1,5 @@
 version: "3.5"
 services:
-  # Install postgres and setup the student database.
   postgres:
     container_name: postgres
     image: postgres
@@ -19,3 +18,9 @@ services:
     ports:
       - "9001:15672"
       - "5672:5672"
+  sqs:
+    container_name: sqs
+    image: rabbitmq:3.8-alpine
+    ports:
+      - "9002:15672"
+      - "5673:5672"
