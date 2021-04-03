@@ -40,7 +40,7 @@ class CaptureCommand @Inject constructor(
 
         val engine = DebeziumEngine.create(CloudEvents::class.java).using(configuration.asProperties())
             .notifying(Consumer<ChangeEvent<String, String>> {
-                if (!it.destination().contains("flyway")) {
+                if (!it.destination().contains("flyway") && !it.destination().endsWith("type_domain")) {
                     println(it.value())
                 }
             }).build()

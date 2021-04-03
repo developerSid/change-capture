@@ -1,4 +1,4 @@
-CREATE EXTENSION IF NOT EXISTS "pgcrypto"; -- see https://www.starkandwayne.com/blog/uuid-primary-keys-in-postgresql/
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp"; -- see https://www.starkandwayne.com/blog/uuid-primary-keys-in-postgresql/
 
 CREATE FUNCTION last_updated_column_fn()
     RETURNS TRIGGER AS
@@ -86,8 +86,8 @@ CREATE TRIGGER update_class_trg
 
 CREATE TABLE class_day_of_week
 (
-    class_id       UUID REFERENCES class (id)          NOT NULL,
-    day_of_week_id INTEGER REFERENCES day_of_week (id) NOT NULL
+    class_id       UUID REFERENCES class (id)                      NOT NULL,
+    day_of_week_id INTEGER REFERENCES day_of_week_type_domain (id) NOT NULL
 );
 
 CREATE TABLE annex_class
@@ -99,6 +99,11 @@ CREATE TABLE annex_class
     class_id        UUID REFERENCES class (id)                           NOT NULL,
     annex_id        UUID REFERENCES annex (id)                           NOT NULL
 );
+CREATE TRIGGER update_annex_class_trg
+    BEFORE UPDATE
+    ON annex_class
+    FOR EACH ROW
+    EXECUTE PROCEDURE last_updated_column_fn();
 
 CREATE TABLE student_annex_class
 (

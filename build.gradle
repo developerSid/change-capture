@@ -37,9 +37,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     compileOnly("org.graalvm.nativeimage:svm")
     implementation("io.micronaut:micronaut-validation")
-    implementation("io.micronaut.redis:micronaut-redis-lettuce")
     implementation("io.micronaut.kotlin:micronaut-kotlin-extension-functions")
     implementation("io.micronaut.cache:micronaut-cache-caffeine")
+    implementation("io.micronaut.rabbitmq:micronaut-rabbitmq")
     implementation("io.debezium:debezium-api:1.4.2.Final")
     implementation("io.debezium:debezium-embedded:1.4.2.Final") {
         exclude group: 'org.slf4j', module: 'slf4j-log4j12'
